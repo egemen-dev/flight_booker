@@ -1,11 +1,33 @@
 <h1>Flights#index</h1>
 <p>Find me in app/views/flights/index.html.erb</p>
-<% @flights.each do |f| %>
-    <%= f.departure.name %>
-    <%= f.departure.location %> -> 
-    <%= f.arrival.name %>
-    <%= f.arrival.location %>
-    <%= f.flight_date %>
-    <%= f.duration %>
-    <%= f.flight_time.hour %>:<%= f.flight_time.min %> UTC</br>
+
+<%= form_with url: flights_index_path, method: :get do |form| %>
+  <%= form.label :departure, "From:" %>
+  <%= form.select(:departure_id, @departure_airports) %>
+  <%= form.label :arrival, "To:" %>
+  <%= form.select(:arrival_id, @arrival_airports) %></br>
+  <%= form.label :passanger_number, "Passengers:" %>
+  <%= form.select(:passanger_num, (1..4)) %>
+  <%= form.label :flight_date, "Date:" %>
+  <%= form.date_select :flight_date, :order => [:day, :month, :year] %></br>
+  <%= form.submit "Search" %>
 <% end %>
+
+<% unless @found.empty? %>
+	<%= form_with do |form| %>
+		<% @found.each do |f| %>
+			<%= form.radio_button :id, f.id %>
+			<%= f.id %>
+			<%= f.departure.name %>
+			<%= f.departure.location %>
+			<%= f.arrival.name %>
+			<%= f.arrival.location %>
+			<%= f.flight_date %>
+			<%= f.flight_time.hour %>:<%= f.flight_time.min %>
+			</br>
+		<% end %>
+	<% end %>
+<% end %>
+
+
+
