@@ -1,2 +1,17 @@
 <h1>Bookings#new</h1>
 <p>Find me in app/views/bookings/new.html.erb</p>
+<% pass_num = @chosen_flight_params[:passanger_number] %>
+<% flight_id = @chosen_flight_params[:id] %>
+<% chosen = Flight.find(flight_id) %>
+
+<%= form_with do |form| %>
+
+<%= chosen.flight_date %>|
+<%= flight_id %>|
+<%= chosen.departure.name %>
+<%= chosen.departure.location %>->
+<%= chosen.arrival.name %>
+<%= chosen.arrival.location %>
+
+
+<% end %>
