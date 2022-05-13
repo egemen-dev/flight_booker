@@ -1,17 +1,27 @@
 <h1>Bookings#new</h1>
 <p>Find me in app/views/bookings/new.html.erb</p>
-<% pass_num = @chosen_flight_params[:passanger_number] %>
+<% pass_num = @chosen_flight_params[:passenger_number].to_i %>
 <% flight_id = @chosen_flight_params[:id] %>
 <% chosen = Flight.find(flight_id) %>
 
-<%= form_with do |form| %>
+<%= @booking %>
+<%= form_with model: @booking do |form| %>
 
-<%= chosen.flight_date %>|
-<%= flight_id %>|
-<%= chosen.departure.name %>
-<%= chosen.departure.location %>->
-<%= chosen.arrival.name %>
-<%= chosen.arrival.location %>
+    <%= flight_id %>|
+    <%= chosen.flight_date.strftime("%d/%m/%Y")%>|
+    <%= chosen.flight_time.strftime("%k:%M")%>|
+    <%= chosen.duration%>|
+    <%= chosen.departure.name %>
+    <%= chosen.departure.location %>->
+    <%= chosen.arrival.name %>
+    <%= chosen.arrival.location %></br>
 
+      <%= form.fields_for :passengers do |sub_form| %>
+        <%= sub_form.text_field :name, placeholder: 'Passenger Name' %>
+        <%= sub_form.email_field :email, placeholder: 'Passenger Email' %></br>
+      <% end %>
+      
+    <%= form.hidden_field :flight_id, value: flight_id %>
+    <%= form.submit %>
 
 <% end %>

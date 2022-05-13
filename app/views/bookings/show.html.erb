@@ -1,0 +1,16 @@
+<% flight = @booking.flight %>
+<% passengers = @booking.passengers %>
+
+<%= flight.id %>|
+<%= flight.flight_date.strftime("%d/%m/%Y")%>|
+<%= flight.flight_time.strftime("%k:%M")%>|
+<%= flight.duration%>|
+<%= flight.departure.name %>
+<%= flight.departure.location %>->
+<%= flight.arrival.name %>
+<%= flight.arrival.location %></br>
+
+<% passengers.each do |p| %></br>
+    <%= p.name %>
+    <%= p.email %>
+<% end %>
