@@ -1,35 +1,44 @@
-<h1>Flights#index</h1>
-<p>Find me in app/views/flights/index.html.erb</p>
+<div class='columns is-mobile is-centered'>
+  <div class= 'column is-narrow'>
+    <h1 class="title is-3 has-text-centered">Flight Booker</h1>
+    <h1 class='subtitle is-5 has-text-centered'>Easiest way to select your flight.</h1>
+  </div>
+</div></br>
 
-<%= form_with url: flights_index_path, method: :get do |form| %>
-  <%= form.label :departure, "From:" %>
-  <%= form.select(:departure_id, @departure_airports) %>
-  <%= form.label :arrival, "To:" %>
-  <%= form.select(:arrival_id, @arrival_airports) %></br>
-  <%= form.label :passenger_number, "Passengers:" %>
-  <%= form.select(:passenger_num, (1..4)) %>
-  <%= form.label :flight_date, "Date:" %>
-  <%= form.date_select :flight_date, :order => [:day, :month, :year] %></br>
-  <%= form.submit "Search Flight" %>
-<% end %>
-
-<% unless @found.empty? %>
-	<%= form_with url: new_booking_path, method: :get do |form| %>
-		<% @found.each do |f| %>
-			<%= form.radio_button :id, f.id %>
-			<%= f.id %>
-			<%= f.departure.name %>
-			<%= f.departure.location %>
-			<%= f.arrival.name %>
-			<%= f.arrival.location %>
-			<%= f.flight_date.strftime("%d/%m/%Y") %>
-			<%= f.flight_time.strftime("%k:%M") %>
-			</br>
-		<% end %>
-	<%= form.hidden_field :passenger_number, value: @passenger_num %>
-	<%= form.submit "Select Flight" %>
+<div class='columns is-mobile is-centered'>
+	<%= form_with url: flights_index_path, class:'control', method: :get do |form| %>
+	<%= form.label :departure, "From:" %>
+	<%= form.select(:departure_id, @departure_airports, {}, { :class => '' }) %>
+	<%= form.label :arrival, "To:" %>
+	<%= form.select(:arrival_id, @arrival_airports, {}, { :class => '' }) %></br></br>
+	<%= form.label :passenger_number, "Passengers:" %>
+	<%= form.select(:passenger_num, (1..4)) %>
+	<%= form.label :flight_date, "Date:" %>
+	<%= form.date_select :flight_date, :order => [:day, :month, :year] %></br></br>
+	<%= form.submit "Search Flight" %>
 	<% end %>
-<% end %>
+</div></br>
 
+<div class='columns is-mobile is-centered'>
+	<% if !@found.empty? && !@passenger_num.nil? %>
+		<%= form_with url: new_booking_path, method: :get do |form| %>
+			<% @found.each do |f| %>
+				<%= form.radio_button :id, f.id %>
+				<%= f.id %> |
+				<%= f.departure.name %>
+				<%= f.departure.location %> |
+				<%= f.arrival.name %>
+				<%= f.arrival.location %> |
+				<%= f.flight_date.strftime("%d/%m/%Y") %> |
+				<%= f.flight_time.strftime("%k:%M") %>
+				</br>
+			<% end %>
+		<%= form.hidden_field :passenger_number, value: @passenger_num %></br>
+		<%= form.submit "Select Flight" %>
+		<% end %>
+	<% elsif @found.empty? && !@passenger_num.nil? %>
+		<% flash.now[:alert] = 'No flights found.' %>
+	<% end %>
+</div>
 
 

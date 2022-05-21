@@ -1,16 +1,37 @@
 <% flight = @booking.flight %>
-<% passengers = @booking.passengers %>
+<% passengers = @booking.passengers %> <br>
+<div class='columns is-mobile is-centered'>
+<div class= 'column is-narrow'>
+    <h1 class='title is-5'>Date:</h1>
+    <%= flight.flight_date.strftime("%d/%m/%Y")%>
+</div>
+<div class= 'column is-narrow'>
+    <h1 class='title is-5'>Departure Time:</h1>
+    <%= flight.flight_time.strftime("%k:%M")%>
+</div>
+<div class= 'column is-narrow'>
+    <h1 class='title is-5'>Flight Duration:</h1>
+    <%= flight.duration %> hours
+</div>
+<div class= 'column is-narrow'>
+    <h1 class='title is-5'>Departure:</h1>
+    <%= flight.departure.name %> |
+    <%= flight.departure.location %>
+</div>
+<div class= 'column is-narrow'>
+    <h1 class='title is-5'>Arrival:</h1>
+    <%= flight.arrival.name %> |
+    <%= flight.arrival.location %>
+</div>
+</div></br>
 
-<%= flight.id %>|
-<%= flight.flight_date.strftime("%d/%m/%Y")%>|
-<%= flight.flight_time.strftime("%k:%M")%>|
-<%= flight.duration%>|
-<%= flight.departure.name %>
-<%= flight.departure.location %>->
-<%= flight.arrival.name %>
-<%= flight.arrival.location %></br>
+<div class='columns is-mobile is-centered'>
+    <% passengers.each do |p| %></br>
+        <%= p.name %>
+        <%= p.email %>
+    <% end %>
+</div></br></br>
 
-<% passengers.each do |p| %></br>
-    <%= p.name %>
-    <%= p.email %>
-<% end %>
+<div class='columns is-mobile is-centered'>
+    <%= link_to 'Book more flights', flights_index_path %>
+</div>
