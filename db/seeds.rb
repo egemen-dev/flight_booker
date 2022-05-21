@@ -15,10 +15,10 @@ Airport.find_or_create_by(name: 'HND', id: 6, location: 'Tokyo, Japan')
 Airport.find_or_create_by(name: 'GIG', id: 7, location: 'Rio de Janeiro, Brazil')
 
 
-(Date.today..Date.today + 45.days).each do |day|
+(Date.today..Date.today + 150.days).each do |day|
    puts day.strftime("%d/%m/%Y")
    i = 0
-   while i < 15
+   while i < 7
       Flight.find_or_create_by(departure_id: 1, arrival_id: ([*1..7] - [1]).sample, flight_date: Date.strptime("#{day.strftime("%d/%m/%Y")}", "%d/%m/%Y"), flight_time: Time.new.change(hour: rand(0..23), min: rand(0..59)), duration: ([*1..6]).sample)
       Flight.find_or_create_by(departure_id: 2, arrival_id: ([*1..7] - [2]).sample, flight_date: Date.strptime("#{day.strftime("%d/%m/%Y")}", "%d/%m/%Y"), flight_time: Time.new.change(hour: rand(0..23), min: rand(0..59)), duration: ([*1..9]).sample)
       Flight.find_or_create_by(departure_id: 3, arrival_id: ([*1..7] - [3]).sample, flight_date: Date.strptime("#{day.strftime("%d/%m/%Y")}", "%d/%m/%Y"), flight_time: Time.new.change(hour: rand(0..23), min: rand(0..59)), duration: ([*1..8]).sample)
