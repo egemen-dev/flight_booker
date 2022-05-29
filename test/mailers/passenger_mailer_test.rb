@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PassengerMailerTest < ActionMailer::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "booked_mail" do
+    assert true
+  end
 end
