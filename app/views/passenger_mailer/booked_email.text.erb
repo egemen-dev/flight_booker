@@ -1,9 +1,9 @@
-Thanks for using the best Flight Booker, <%= @user.name %>
+Thanks for using the best Flight Booker, <%= @passenger.name %>
 ===============================================
 
 You have successfully booked a flight,
-your username is: <%= @user.login %>.
+your booking id: <%= @passenger.booking_id %>.
 
-To see the booking, just follow this link: <%= @url %>.
+To see the booking, just follow this link:  <%= booking_url(@passenger.booking_id) %>
 
 Have a great day!

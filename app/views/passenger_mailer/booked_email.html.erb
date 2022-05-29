@@ -3,14 +3,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Thanks for using the best Flight Booker, <%= @user.name %></h1>
-    <p>
+    <h4>Thanks for using the best Flight Booker, <%= @passenger.name %></h4>.
+    <p><br>
       You have successfully booked a flight,
-      your username is: <%= @user.login %>.<br>
+      your booking id: <%= @passenger.booking_id %>.<br>
     </p>
     <p>
-      To see the booking, just follow this link: <%= @url %>.
-    </p>
+      To see the booking, just follow this link: <%= link_to 'Your Booking', booking_url(@passenger.booking_id) %>.
+    </p><br>
     <p>Have a great day!</p>
   </body>
 </html>
